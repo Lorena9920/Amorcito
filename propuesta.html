@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi amorcito. </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.85), rgba(255, 105, 180, 0.85));
+            z-index: -1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 182, 193, 0.5);
+        }
+
+        h1 {
+            color: #ff69b4;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            color: #2f3542;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .si-btn {
+            background-color: #ff4757;
+            color: white;
+        }
+
+        .no-btn {
+            background-color: #ffa502;
+            color: white;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .no-btn:hover {
+            transform: scale(1.02);
+            position: fixed;
+            left: var(--random-x);
+            top: var(--random-y);
+        }
+
+        .heart {
+            position: fixed;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .horse {
+            position: fixed;
+            font-size: 8rem;
+            animation: run 4s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes run {
+            0% {
+                transform: translateX(-100vw) translateY(30vh) scaleX(1);
+            }
+            50% {
+                transform: translateX(0vw) translateY(30vh) scaleX(1);
+            }
+            51% {
+                transform: translateX(0vw) translateY(30vh) scaleX(-1);
+            }
+            100% {
+                transform: translateX(100vw) translateY(30vh) scaleX(-1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💝Ha llegado el momento de yo preguntarte algo💝</h1>
+        <p>Querido Manolo, manolin.</p>
+        <p>Después de pasar 9 meses juntos,que me hayas hecho muy feliz y lo mas importante, que yo recordara como programar, hay algo que quiero preguntarte...</p>
+        <p>¿Te gustaría ser mi novio?</p>
+        
+        <div class="buttons">
+            <button class="si-btn" onclick="respuestaPositiva()">Sí, quiero 💖</button>
+            <button class="no-btn">No, gracias</button>
+        </div>
+    </div>
+
+    <script>
+        function respuestaPositiva() {
+            alert('Espero no hayas intentado decir que no. 😠 ¡Te amo muchísimo guapo! 💖');
+            crearCaballo();
+        }
+
+        function respuestaNegativa() {
+            alert('¡Respuesta equivocada! Intente de nuevo 😅');
+        }
+
+        function crearCorazon() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(heart);
+        }
+
+        // Crear corazones al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Crear corazones iniciales
+            for(let i = 0; i < 30; i++) {
+                crearCorazon();
+            }
+
+            // Crear nuevos corazones cada cierto tiempo
+            setInterval(crearCorazon, 1000);
+
+            // Configurar el botón No
+            const noBtn = document.querySelector('.no-btn');
+            noBtn.addEventListener('mouseover', function() {
+                const corners = [
+                    { x: window.innerWidth * 0.1, y: window.innerHeight * 0.1 },
+                    { x: window.innerWidth * 0.9, y: window.innerHeight * 0.1 },
+                    { x: window.innerWidth * 0.1, y: window.innerHeight * 0.9 },
+                    { x: window.innerWidth * 0.9, y: window.innerHeight * 0.9 }
+                ];
+                
+                const corner = corners[Math.floor(Math.random() * corners.length)];
+                this.style.setProperty('--random-x', corner.x + 'px');
+                this.style.setProperty('--random-y', corner.y + 'px');
+            });
+        });
+
+        function crearCaballo() {
+            const horse = document.createElement('div');
+            horse.innerHTML = '🐎';
+            horse.className = 'horse';
+            document.body.appendChild(horse);
+            
+            setTimeout(() => {
+                horse.remove();
+            }, 10000);
+        }
+    </script>
+</body>
+</html> 
